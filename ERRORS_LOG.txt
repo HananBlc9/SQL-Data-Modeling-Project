@@ -1,0 +1,18 @@
+ERRORS:
+1. Msg 2628, Level 16, State 1, Line 45
+String or binary data would be truncated in table 'Training_Institute.dbo.Trainee', column 'gender'. Truncated value: 'F'.
+The statement has been terminated.
+
+
+solution: I set the datatype to check for F OR M, but actual data contained Female and Male, so I changed the
+actual data to represent F and M.
+
+2. Msg 547, Level 16, State 0, Line 69
+The INSERT statement conflicted with the FOREIGN KEY constraint "FK__Enrollmen__train__4222D4EF". The conflict occurred in database "Training_Institute", table "dbo.Trainee", column 'trainee_id'.
+The statement has been terminated.
+
+solution: The issue was that at the beginning I populated trainee table with wrong data, where trainee id didn't start from 1,2,3,... So when I tried to create enrollment table the foreign key trainee_id had values such 1, 2, 3 which didn't have a reference in trainee table. To solve this I dropped the tables that have trainee_id as foreign key then I dropped Trainee table, and recreated the tables with the correct data. The issue was solved!
+
+3. I got repeated names and emails when I was trying to list trainees info who are under a specific trainer.
+
+Solution: used DISTINCT in SELECT part
